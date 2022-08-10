@@ -1,45 +1,41 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdarg.h> /*for varyadic functions*/
-#include <stdlib.h> /*for malloc and NULL*/
-#include <unistd.h> /*for write*/
-#include <limits.h> /* for test cases*/
-
+#include <stdlib.h>
+#include <stdarg.h>
+#include <unistd.h>
 /**
- * struct special_cases - struct for the special cases
- * @match: the special character to match after find a percentage
- * @function: the associated function to be called in each specialcase
+ * struct type - connect conversion specifiers with the correct print function
+ * @print: a function pointer for the print functions
+ * @identifier: the conversion specifier
  */
-
-typedef struct special_cases
+typedef struct type
 {
-	char *match;
-	int (*function)(va_list);
-} spc_t;
+	char *identifier;
+	int (*print)(va_list);
+} type_t;
 
-/*format and print data*/
-int _printf(const char *format, ...);
-
-/*writes the character c to stdout*/
 int _putchar(char c);
+int (*get_function(const char *specifier))(va_list);
+int _printf(const char *, ...);
+int _strlen(char *);
+int print_rev(va_list args);
+int rot13(va_list args);
+int print_number(unsigned int n);
+int countDigits(unsigned int num);
+int countOctal(unsigned int num);
+int countBinary(unsigned int num);
+int print_b(va_list args);
+int print_o(va_list args);
+int print_d(va_list args);
+int print_x(va_list args);
+void print_lowerHex(unsigned int num, int *count);
+int print_X(va_list args);
+void print_upperHex(unsigned int num, int *count);
+int print_p(va_list args);
+int print_s(va_list args);
+int print_c(va_list args);
+int print_u(va_list args);
+int print_F(va_list args);
 
-/*search for match and execute the function according to this*/
-int (*mod_character_s(const char *next, int dino))(va_list);
-
-/*prints a char*/
-int print_char(va_list c);
-
-/*prints a string */
-int print_string(va_list s);
-
-/*converts a string to an integer and prints its content.*/
-int print_number(va_list i);
-
-/*converts a string to an unsigned integer and prints its content*/
-int print_unsigned(va_list u);
-
-/*prints a string in reverse*/
-int print_reverse(va_list r);
-
-#endif /* MAIN */
+#endif /* MAIN_H */
